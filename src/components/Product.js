@@ -10,7 +10,7 @@ class ProductGrid extends Component {
 		this.addToCart = this.addToCart.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.isQuantityLessThanStock = this.isQuantityLessThanStock.bind(this);
-		this.isOutOfStock = this.isOutOfStock().bind(this);
+		this.isOutOfStock = this.isOutOfStock.bind(this);
 	}
 	handleChange(event) {
     	this.setState({quantity: event.target.value});
@@ -21,13 +21,14 @@ class ProductGrid extends Component {
 	}
 
 	isOutOfStock() {
-		return this.stock <= 0;
+		return this.state.stock <= 0;
 	}
 	addToCart() {
 
 		if (this.isQuantityLessThanStock() || this.quantity > 0) {
 			this.setState ({ 
-				stock: this.state.stock - this.state.quantity
+				stock: this.state.stock - this.state.quantity,
+				quantity: 1
 			});
 
 			this.props.onAddToCart( {
@@ -37,7 +38,8 @@ class ProductGrid extends Component {
 				totalPrice: +this.state.quantity * this.props.price
 			})
 
-		} else alert('quantity too big!')
+		} else if (this.isOutOfStock()) alert('item out of stock');
+		else alert('quantity too big!')
 	}	
 	render() {
 		return (
@@ -48,7 +50,7 @@ class ProductGrid extends Component {
 				<div>
 					<label> Quantity </label>
 					<input onChange={this.handleChange} value={+this.state.quantity} type="number" />
-					<button onClick={this.addToCart} className="product__add-to-cart"> Add to cart</button>
+					<button onClick={this.addToCart} className={"product__add-to-cart " + (this.isOutOfStock() ? 'button' : 'button-primary button')  + ""}> Add to cart</button>
 				</div>
 			</div>
 			)

@@ -18,9 +18,9 @@ class Cart extends Component {
 				<div className="cart__products-list">
 				{this.props.products.map((product, key) =>
 					<div key={key} className="cart__product">
-						<h5 className="product__title">Name { product.name } </h5>
+						<h5 className="product__title">{ product.name } </h5>
 						{/*<p className="product__price">Price { product.price }$ </p>*/}
-						<p className="product__quantity">Qunatity { product.quantity } </p>
+						<p className="product__quantity">Quantity: { product.quantity } </p>
 						<p className="product__total-price"> Total price: { product.totalPrice }$ </p>
 					</div>
 
