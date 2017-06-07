@@ -7,7 +7,6 @@ class Cart extends Component {
 	}
 	orderPrice() {
 		return this.props.products.reduce((totalPrice, currentProduct) => {
-            console.log(currentProduct.totalPrice);
             return totalPrice + currentProduct.totalPrice;
         }, 0);
 	}

@@ -6,7 +6,8 @@ body {
 }
 
 .app-container {
-	padding: 25px;
+	padding: 35px;
+    width: 1200px;
 }
 
 .inner-container {
