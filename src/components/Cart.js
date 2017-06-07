@@ -4,11 +4,18 @@ class Cart extends Component {
 	constructor() {
 		super();
 		this.orderPrice = this.orderPrice.bind(this);
+		this.deleteProduct = this.deleteProduct.bind(this);
 	}
 	orderPrice() {
 		return this.props.products.reduce((totalPrice, currentProduct) => {
             return totalPrice + currentProduct.totalPrice;
         }, 0);
+	}
+
+	deleteProduct(productKey) {
+
+		this.props.onDeleteProduct({ productKey });
+
 	}
 	render() {
 		return (
@@ -25,6 +32,7 @@ class Cart extends Component {
 						{/*<p className="product__price">Price { product.price }$ </p>*/}
 						<p className="product__quantity">Quantity: { product.quantity } </p>
 						<p className="product__total-price"> Total price: { product.totalPrice }$ </p>
+						<button className="button button-delete" onClick={this.deleteProduct.bind(this, key)}> Delete </button>
 					</div>
 
 				)}

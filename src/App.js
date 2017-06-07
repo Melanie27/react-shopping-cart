@@ -12,6 +12,7 @@ class App extends Component {
     constructor() {
         super();
         this.sendToCart = this.sendToCart.bind(this);
+        this.deleteProduct = this.deleteProduct.bind(this);
         this.state = {
             products: []
         }
@@ -24,6 +25,16 @@ class App extends Component {
         console.log(this.state.products);
 
     }
+
+    deleteProduct(productKey) {
+
+        // this.state.products = this.state.products.splice(productKey, 1);
+
+        this.setState(state => {
+            state.products.splice(productKey, 1);
+            return {products: state.products};
+        });
+    }
       render() {
         return (
             // <Provider store={store}>
@@ -31,7 +42,7 @@ class App extends Component {
               <TitleBar title="MyShop"/>
                 <div className="inner-container">
                     <ProductGrid onAddToCart={this.sendToCart}/>
-                    <Cart products={this.state.products}/>
+                    <Cart onDeleteProduct={this.deleteProduct} products={this.state.products}/>
                 </div>
 
           </div>

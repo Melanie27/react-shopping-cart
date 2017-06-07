@@ -5,3 +5,7 @@
     height: 300px;
     overflow-y: scroll;
 }
+
+.button-delete {
+    background-color: indianred;
+}
