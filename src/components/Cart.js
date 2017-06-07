@@ -14,7 +14,11 @@ class Cart extends Component {
 		return (
 			<div className="cart">
 				<h3 className="cart__title"> Your order </h3>
-				<div className="cart__products-list">
+				<h5 className="cart__order-price">
+					Order price: 		{ this.orderPrice() }$
+				</h5>
+				<p>Your products:</p>
+				<div className="cart__products-list" >
 				{this.props.products.map((product, key) =>
 					<div key={key} className="cart__product">
 						<h5 className="product__title">{ product.name } </h5>
@@ -25,9 +29,8 @@ class Cart extends Component {
 
 				)}
 				</div>
-				<h5 className="cart__order-price">
-					Order price: 		{ this.orderPrice() }$
-				</h5>
+				<button className="button button-primary"> Order! </button>
+
 			</div>
 			)
 	}

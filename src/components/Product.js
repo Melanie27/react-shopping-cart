@@ -5,7 +5,6 @@ class ProductGrid extends Component {
 	constructor() {
 		super();
 		this.state = {
-			stock: 10,
 			quantity: 1
 		};
 		this.addToCart = this.addToCart.bind(this);
@@ -18,17 +17,16 @@ class ProductGrid extends Component {
   	}
 
 	isQuantityLessThanStock() {
-		return this.state.quantity <= this.state.stock;
+		return this.state.quantity <= this.props.stock;
 	}
 
 	isOutOfStock() {
-		return this.state.stock <= 0;
+		return this.props.stock <= 0;
 	}
 	addToCart() {
 
 		if (this.isQuantityLessThanStock() && this.state.quantity > 0) {
 			this.setState ({ 
-				stock: this.state.stock - this.state.quantity,
 				quantity: 1
 			});
 
@@ -59,7 +57,7 @@ class ProductGrid extends Component {
 					<p> Total price {this.props.price * this.state.quantity} </p>
 					<button onClick={this.addToCart} className={"product__add-to-cart " + (this.isOutOfStock() ? 'button' : 'button-primary button')  + ""}> Add to cart</button>
 				</div>
-				<p className="product__stock"> Stock: { this.state.stock } </p>
+				<p className="product__stock"> Stock: { this.props.stock } </p>
 			</div>
 			)
 	}

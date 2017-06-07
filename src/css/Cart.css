@@ -1,0 +1,7 @@
+.cart {
+    width: 300px;
+}
+.cart__products-list {
+    height: 300px;
+    overflow-y: scroll;
+}
