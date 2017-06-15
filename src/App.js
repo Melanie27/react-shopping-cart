@@ -18,11 +18,9 @@ class App extends Component {
         }
     }
     sendToCart(product) {
-        console.log(`im sending product ${product.name} to cart, with price ${product.price} and quantity of ${product.quantity}`);
         let newProducts = this.state.products;
         newProducts.push(product);
         this.setState({ products: newProducts});
-        console.log(this.state.products);
 
     }
 
