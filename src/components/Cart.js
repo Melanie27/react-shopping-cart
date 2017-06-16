@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import '../css/Cart.css';
 class Cart extends Component {
 	constructor() {
 		super();
-		this.state = {
-			isCartOpened: false
-		};
+
+
 		this.orderPrice = this.orderPrice.bind(this);
 		this.deleteProduct = this.deleteProduct.bind(this);
 	}
@@ -16,9 +16,10 @@ class Cart extends Component {
 	}
 
 	toggleCartStatus() {
-		this.setState({
-			isCartOpened: !this.state.isCartOpened
-		})
+		// this.setState({
+		// 	isCartOpened: !this.state.isCartOpened
+		// })
+		this.props.toggleCartStatus()
 	}
 
 
@@ -30,9 +31,9 @@ class Cart extends Component {
 	//{"product__add-to-cart card-footer-item button is-primary" + (this.isOutOfStock() ? 'button' : 'button is-primary')  + ""}
 	render() {
 		return (
-			<aside className={"cart menu " + (this.state.isCartOpened ? 'cart__is-open' : '')}>
+			<aside className={"cart menu " + (this.props.isCartOpened ? 'cart__is-open' : 'is-closed')}>
 				<button onClick={this.toggleCartStatus.bind(this)} className="cart__switcher button is-info">
-					{this.state.isCartOpened ? 'Close' : 'Open Your Cart'}
+					{this.props.isCartOpened ? 'Close' : 'Open Your Cart'}
 				</button>
 				<h3 className="title is-2"> Your order </h3>
 				<h5 className="tag">
@@ -62,4 +63,22 @@ class Cart extends Component {
 			)
 	}
 }
-export default Cart;
+
+const mapStateToProps = (state) => {
+	return {
+		isCartOpened: state.isCartOpened
+	}
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		toggleCartStatus: () => {
+			dispatch({
+				type: 'OPEN_CART',
+				payload: ''
+			})
+		}
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

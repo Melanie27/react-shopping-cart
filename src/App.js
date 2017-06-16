@@ -6,6 +6,8 @@ import Cart from './components/Cart.js';
 import './index.css';
 import logo from './logo.svg';
 
+import CartStore from './store/CartStore';
+import { Provider } from 'react-redux'
 
 
 class App extends Component {
@@ -35,16 +37,16 @@ class App extends Component {
     }
       render() {
         return (
-            // <Provider store={store}>
-            <div className="app-container container">
-              <TitleBar title="MyShop"/>
-                <div className="inner-container">
-                    <ProductGrid onAddToCart={this.sendToCart}/>
-                    <Cart onDeleteProduct={this.deleteProduct} products={this.state.products}/>
-                </div>
+            <Provider store={CartStore}>
+                <div className="app-container container">
+                    <TitleBar title="MyShop"/>
+                    <div className="inner-container">
+                        <ProductGrid onAddToCart={this.sendToCart}/>
+                        <Cart products={this.state.products}/>
+                    </div>
 
-          </div>
-          // </Provider>
+              </div>
+            </Provider>
         )
       }
     }
