@@ -1,5 +1,25 @@
 .cart {
     width: 300px;
+    position: absolute;
+    padding: 15px;
+    -webkit-box-shadow:  -2px 0px 10px rgba(0,0,0, .2);
+    -moz-box-shadow:  -2px 0px 10px rgba(0,0,0, .2);
+    box-shadow:  0px 0px 10px rgba(0,0,0, .2);
+    right: -400px;
+    -webkit-transition: right .3s;
+    -moz-transition: right .3s;
+    -ms-transition: right .3s;
+    -o-transition: right .3s;
+    transition: right .3s;
+    background: white;
+}
+.cart__switcher {
+    position: absolute;
+    right: 160px;
+    top: -75px;
+}
+.cart__is-open {
+    right: -80px;
 }
 .cart__products-list {
     height: 300px;

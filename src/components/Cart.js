@@ -3,6 +3,9 @@ import '../css/Cart.css';
 class Cart extends Component {
 	constructor() {
 		super();
+		this.state = {
+			isCartOpened: false
+		};
 		this.orderPrice = this.orderPrice.bind(this);
 		this.deleteProduct = this.deleteProduct.bind(this);
 	}
@@ -12,16 +15,27 @@ class Cart extends Component {
         }, 0);
 	}
 
+	toggleCartStatus() {
+		this.setState({
+			isCartOpened: !this.state.isCartOpened
+		})
+	}
+
+
 	deleteProduct(productKey) {
 
 		this.props.onDeleteProduct({ productKey });
 
 	}
+	//{"product__add-to-cart card-footer-item button is-primary" + (this.isOutOfStock() ? 'button' : 'button is-primary')  + ""}
 	render() {
 		return (
-			<div className="cart">
-				<h3 className="cart__title"> Your order </h3>
-				<h5 className="cart__order-price">
+			<aside className={"cart menu " + (this.state.isCartOpened ? 'cart__is-open' : '')}>
+				<button onClick={this.toggleCartStatus.bind(this)} className="cart__switcher button is-info">
+					{this.state.isCartOpened ? 'Close' : 'Open Your Cart'}
+				</button>
+				<h3 className="title is-2"> Your order </h3>
+				<h5 className="tag">
 					Order price: 		{ this.orderPrice() }$
 				</h5>
 				<p>Your products:</p>
@@ -32,14 +46,19 @@ class Cart extends Component {
 						{/*<p className="product__price">Price { product.price }$ </p>*/}
 						<p className="product__quantity">Quantity: { product.quantity } </p>
 						<p className="product__total-price"> Total price: { product.totalPrice }$ </p>
-						<button className="button button-delete" onClick={this.deleteProduct.bind(this, key)}> Delete </button>
+						<div className="block" >
+								<span className="tag is-danger">
+									Delete
+							<button onClick={this.deleteProduct.bind(this, key)} className="delete is-small"></button>
+							</span>
+						</div>
 					</div>
 
 				)}
 				</div>
-				<button className="button button-primary"> Order! </button>
+				<button className="button is-danger"> Order! </button>
 
-			</div>
+			</aside>
 			)
 	}
 }

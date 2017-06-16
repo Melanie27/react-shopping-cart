@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import TitleBar from './components/TitleBar.js';
 import ProductGrid from './components/ProductGrid.js';
 import Cart from './components/Cart.js';
-
+import './index.css';
 import logo from './logo.svg';
 
 
@@ -36,7 +36,7 @@ class App extends Component {
       render() {
         return (
             // <Provider store={store}>
-            <div className="app-container">
+            <div className="app-container container">
               <TitleBar title="MyShop"/>
                 <div className="inner-container">
                     <ProductGrid onAddToCart={this.sendToCart}/>
