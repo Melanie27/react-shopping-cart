@@ -3,39 +3,50 @@ import React, { Component } from 'react';
 import TitleBar from './components/TitleBar.js';
 import ProductGrid from './components/ProductGrid.js';
 import Cart from './components/Cart.js';
-
+import './index.css';
 import logo from './logo.svg';
 
+import CartStore from './store/CartStore';
+import { Provider } from 'react-redux'
 
 
 class App extends Component {
     constructor() {
         super();
         this.sendToCart = this.sendToCart.bind(this);
+        this.deleteProduct = this.deleteProduct.bind(this);
         this.state = {
             products: []
         }
     }
     sendToCart(product) {
-        console.log(`im sending product ${product.name} to cart, with price ${product.price} and quantity of ${product.quantity}`);
         let newProducts = this.state.products;
         newProducts.push(product);
         this.setState({ products: newProducts});
-        console.log(this.state.products);
 
+    }
+
+    deleteProduct(productKey) {
+
+        // this.state.products = this.state.products.splice(productKey, 1);
+
+        this.setState(state => {
+            state.products.splice(productKey, 1);
+            return {products: state.products};
+        });
     }
       render() {
         return (
-            // <Provider store={store}>
-            <div className="app-container">
-              <TitleBar title="MyShop"/>
-                <div className="inner-container">
-                    <ProductGrid onAddToCart={this.sendToCart}/>
-                    <Cart products={this.state.products}/>
-                </div>
+            <Provider store={CartStore}>
+                <div className="app-container container">
+                    <TitleBar title="MyShop"/>
+                    <div className="inner-container">
+                        <ProductGrid onAddToCart={this.sendToCart}/>
+                        <Cart products={this.state.products}/>
+                    </div>
 
-          </div>
-          // </Provider>
+              </div>
+            </Provider>
         )
       }
     }

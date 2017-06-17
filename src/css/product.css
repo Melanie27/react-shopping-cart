@@ -1,17 +1,14 @@
 .product {
-	padding: 25px 0;
-	height: 300px;
-	width: 300px;
 }
 
-.product__name {
-	font-size: 30px;
-	margin-bottom: 10px;	
-}
+/*.product__name {*/
+	/*font-size: 30px;*/
+	/*margin-bottom: 10px;	*/
+/*}*/
 
-.product__price {
-	color: #555;
-}
+/*.product__price {*/
+	/*color: #555;*/
+/*}*/
 
 /*.product__add-to-cart {*/
 	/*background: #1976D2;*/

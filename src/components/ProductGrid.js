@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ProductsDatabase from './ProductsDatabase.js';
 import Product from './Product.js';
-import '../css/productGrid.css';
+// import '../css/productGrid.css';
 class ProductGrid extends Component {
 	constructor() {
 		super();
@@ -27,9 +27,11 @@ class ProductGrid extends Component {
 	}
 	render() {
 		return (
-			<div className="productGrid">
+			<div className="product-grid columns">
 				{ this.state.ProductsDatabase.map((product, key) =>
-					<Product key={key} onAddToCart={this.addToCart} name={product.name} stock={product.stock} price={product.price}  />
+					<div className="column">
+						<Product key={key} onAddToCart={this.addToCart} name={product.name} stock={product.stock} price={product.price}  />
+					</div>
 					)}
 			</div>
 		)
