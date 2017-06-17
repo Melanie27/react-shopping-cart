@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ProductsDatabase from './ProductsDatabase.js';
 import Product from './Product.js';
-// import '../css/productGrid.css';
+import '../css/productGrid.css';
 class ProductGrid extends Component {
 	constructor() {
 		super();
@@ -12,26 +12,32 @@ class ProductGrid extends Component {
 	addToCart(product) {
 
 		this.props.onAddToCart({
-			name: product.name,
-			price: product.price,
-			quantity: product.quantity,
+			...product,
             totalPrice: product.quantity * product.price
-
         });
 
-		let addedProductIndex = this.state.ProductsDatabase.findIndex((productFromDB) =>
-			productFromDB.name === product.name
-		);
-		console.log(` added product index ${addedProductIndex}`);
-		this.state.ProductsDatabase[addedProductIndex].stock -= product.quantity;
+		// let addedProductIndex = this.state.ProductsDatabase.findIndex((productFromDB) =>
+		// 	productFromDB.name === product.name
+		// );
+		// console.log(` added product index ${addedProductIndex}`);
+
+		this.setState({
+			...ProductsDatabase,
+			ProductsDatabase: this.state.ProductsDatabase.map((singleProduct) =>{
+				if (singleProduct.name === product.name) {
+					return {
+						...singleProduct,
+						stock: singleProduct.stock - product.quantity
+					}
+				} return singleProduct
+			})
+		})
 	}
 	render() {
 		return (
-			<div className="product-grid columns">
+			<div className="product-grid">
 				{ this.state.ProductsDatabase.map((product, key) =>
-					<div className="column">
 						<Product key={key} onAddToCart={this.addToCart} name={product.name} stock={product.stock} price={product.price}  />
-					</div>
 					)}
 			</div>
 		)

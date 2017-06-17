@@ -29,3 +29,27 @@
 .button-delete {
     background-color: indianred;
 }
+
+.cart-product {
+
+}
+
+.cart__title {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.cart__price-tag {
+    margin-bottom: 25px;
+}
+
+.cart-product {
+    margin-bottom: 25px;
+}
+.cart-product__title {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.cart-product__price {
+    margin-bottom: 10px;
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../css/Cart.css';
+import sweetAlert from 'sweetalert';
 class Cart extends Component {
 	constructor() {
 		super();
@@ -28,6 +29,11 @@ class Cart extends Component {
 		this.props.onDeleteProduct({ productKey });
 
 	}
+
+	makeOrder() {
+		if (this.orderPrice() <= 0)
+			sweetAlert('Error', 'Your cart is empty. Try to add some products!')
+	}
 	//{"product__add-to-cart card-footer-item button is-primary" + (this.isOutOfStock() ? 'button' : 'button is-primary')  + ""}
 	render() {
 		return (
@@ -35,18 +41,16 @@ class Cart extends Component {
 				<button onClick={this.toggleCartStatus.bind(this)} className="cart__switcher button is-info">
 					{this.props.isCartOpened ? 'Close' : 'Open Your Cart'}
 				</button>
-				<h3 className="title is-2"> Your order </h3>
-				<h5 className="tag">
+				<h3 className="title is-2 cart__title "> Your order </h3>
+				<h5 className="tag cart__price-tag">
 					Order price: 		{ this.orderPrice() }$
 				</h5>
-				<p>Your products:</p>
 				<div className="cart__products-list" >
 				{this.props.products.map((product, key) =>
-					<div key={key} className="cart__product">
-						<h5 className="product__title">{ product.name } </h5>
+					<div key={key} className="cart-product">
+						<h5 className="cart-product__title">{ product.quantity } { product.name } </h5>
 						{/*<p className="product__price">Price { product.price }$ </p>*/}
-						<p className="product__quantity">Quantity: { product.quantity } </p>
-						<p className="product__total-price"> Total price: { product.totalPrice }$ </p>
+						<p className="cart-product__total-price">{ product.totalPrice }$ </p>
 						<div className="block" >
 								<span className="tag is-danger">
 									Delete
@@ -57,7 +61,7 @@ class Cart extends Component {
 
 				)}
 				</div>
-				<button className="button is-danger"> Order! </button>
+				<button onClick={this.makeOrder.bind(this)} className="button is-danger"> Order! </button>
 
 			</aside>
 			)
@@ -74,8 +78,7 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		toggleCartStatus: () => {
 			dispatch({
-				type: 'OPEN_CART',
-				payload: ''
+				type: 'TOGGLE_CART'
 			})
 		}
 	}

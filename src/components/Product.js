@@ -26,16 +26,17 @@ class ProductGrid extends Component {
 	addToCart() {
 
 		if (this.isQuantityLessThanStock() && this.state.quantity > 0) {
-			this.setState ({ 
-				quantity: 1
-			});
 
+			console.log(`sending from product component product with quantity ${this.state.quantity}`);
 			this.props.onAddToCart( {
 				name: this.props.name,
 				price: this.props.price,
 				quantity: +this.state.quantity,
 				totalPrice: +this.state.quantity * this.props.price
 			})
+            this.setState ({
+                quantity: 1
+            });
 
 		} else if (this.isOutOfStock()) sweetAlert({ title: "Error!",
             text: "Item out of stock :(",
@@ -61,7 +62,9 @@ class ProductGrid extends Component {
 				</div>
 				<div className="card-footer">
 					<p className="product__stock card-footer-item"> Stock: { this.props.stock } </p>
-					<button onClick={this.addToCart} className={"product__add-to-cart card-footer-item button is-primary" + (this.isOutOfStock() ? 'button' : 'button is-primary')  + ""}> Add to cart</button>
+					<p className="card-footer-item">
+						<button onClick={this.addToCart} className={"product__add-to-cart button is-primary" + (this.isOutOfStock() ? 'button' : 'button is-primary')  + ""}> Add to cart</button>
+					</p>
 
 
 				</div>

@@ -19,21 +19,26 @@ class App extends Component {
             products: []
         }
     }
-    sendToCart(product) {
-        let newProducts = this.state.products;
-        newProducts.push(product);
-        this.setState({ products: newProducts});
+    sendToCart(newProduct) {
+        // let newProducts = this.state.products;
+        // newProducts.push(product);
+        // this.setState({ products: newProducts});
+        this.setState({
+            products: [...this.state.products, newProduct]
+        })
 
     }
 
-    deleteProduct(productKey) {
+    deleteProduct(productToDelete) {
 
-        // this.state.products = this.state.products.splice(productKey, 1);
 
-        this.setState(state => {
-            state.products.splice(productKey, 1);
-            return {products: state.products};
-        });
+        console.log(`product to delete is ${productToDelete}`);
+        console.log(productToDelete);
+        this.setState({
+            products: this.state.products.filter((singleProduct, key) => {
+                return key !== productToDelete.productKey;
+            })
+        })
     }
       render() {
         return (
@@ -42,7 +47,7 @@ class App extends Component {
                     <TitleBar title="MyShop"/>
                     <div className="inner-container">
                         <ProductGrid onAddToCart={this.sendToCart}/>
-                        <Cart products={this.state.products}/>
+                        <Cart products={this.state.products} onDeleteProduct={this.deleteProduct}/>
                     </div>
 
               </div>

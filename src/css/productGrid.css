@@ -1,4 +1,5 @@
-.productGrid {
+.product-grid {
 	display: flex;
-	width: 1000px;
+	width: 100%;
+	flex-wrap: wrap;
 }
