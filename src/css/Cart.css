@@ -14,7 +14,7 @@
     background: white;
 }
 .cart__switcher {
-    position: absolute;
+    position: fixed;
     right: 160px;
     top: -75px;
 }

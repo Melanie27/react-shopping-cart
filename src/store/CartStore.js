@@ -1,37 +1,25 @@
 /**
  * Created by belothar on 16.06.17.
  */
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { logger } from 'redux-logger';
+import ProductsDatabase from './ProductsDatabase.js';
 
-const cartReducer = (state = {
-    isCartOpened: false
-}, action ) => {
-    if (action.type === 'TOGGLE_CART')
-        state = {
-            ...state,
-            isCartOpened: !state.isCartOpened
-        }
-    return state;
-};
 
 const productReducer = (state = {
-    products: []
+    ProductsDatabase: ProductsDatabase,
+   cartProducts: []
 }, action) => {
-    if (action.type === 'ADD_PRODUCT') {
+    if (action.type === 'ADD_PRODUCT_TO_CART') {
         state = {
             ...state,
-            products: [...state.products, action.payload]
-        };
+            cartProducts: [...state.cartProducts, action.productToAdd]
+        }
     }
-    return state;
+    return state
 
 };
 
-const rootReducer = combineReducers({
-    productReducer,
-    cartReducer
-})
-const cartStore = createStore(cartReducer, applyMiddleware(logger));
+const cartStore = createStore(productReducer, applyMiddleware(logger));
 
 export default cartStore;

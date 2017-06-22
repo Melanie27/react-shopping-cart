@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 // moje
-import TitleBar from './components/TitleBar.js';
-import ProductGrid from './components/ProductGrid.js';
-import Cart from './components/Cart.js';
 import './index.css';
 import logo from './logo.svg';
-
 import CartStore from './store/CartStore';
 import { Provider } from 'react-redux'
+import Cart from './components/Cart.js';
+import ProductGrid from './components/ProductGrid.js';
 
 
 class App extends Component {
@@ -20,21 +18,21 @@ class App extends Component {
         }
     }
     sendToCart(newProduct) {
-        // let newProducts = this.state.products;
-        // newProducts.push(product);
-        // this.setState({ products: newProducts});
         this.setState({
             products: [...this.state.products, newProduct]
         })
-
     }
-
+    applyFilter(category) {
+        this.setState({
+                ...this.state,
+            productsToFilter: category
+        })
+    }
     deleteProduct(productToDelete) {
-
-
         console.log(`product to delete is ${productToDelete}`);
         console.log(productToDelete);
         this.setState({
+            ...this.state,
             products: this.state.products.filter((singleProduct, key) => {
                 return key !== productToDelete.productKey;
             })
@@ -43,15 +41,16 @@ class App extends Component {
       render() {
         return (
             <Provider store={CartStore}>
-                <div className="app-container container">
-                    <TitleBar title="MyShop"/>
-                    <div className="inner-container">
-                        <ProductGrid onAddToCart={this.sendToCart}/>
-                        <Cart products={this.state.products} onDeleteProduct={this.deleteProduct}/>
-                    </div>
 
+            <div className="app-container container">
+                    <div className="inner-container">
+                            <ProductGrid filterProducts={this.state.productsToFilter} onAddToCart={this.sendToCart}/>
+
+
+                    </div>
+                    <Cart></Cart>
               </div>
-            </Provider>
+      </Provider>
         )
       }
     }

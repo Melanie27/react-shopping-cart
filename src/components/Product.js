@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import sweetAlert from 'sweetalert';
 import '../css/product.css';
-class ProductGrid extends Component {
+import {connect} from "react-redux";
+class Product extends Component {
 	constructor() {
 		super();
-		this.state = {
-			quantity: 1
-		};
-		this.addToCart = this.addToCart.bind(this);
+
 		this.handleChange = this.handleChange.bind(this);
 		this.isQuantityLessThanStock = this.isQuantityLessThanStock.bind(this);
 		this.isOutOfStock = this.isOutOfStock.bind(this);
@@ -23,29 +21,14 @@ class ProductGrid extends Component {
 	isOutOfStock() {
 		return this.props.stock <= 0;
 	}
-	addToCart() {
+    addProductToCart() {
+		let self = this;
+		this.props.addProductToCart({
 
-		if (this.isQuantityLessThanStock() && this.state.quantity > 0) {
+				name: self.props.name,
+				price: self.props.price
 
-			console.log(`sending from product component product with quantity ${this.state.quantity}`);
-			this.props.onAddToCart( {
-				name: this.props.name,
-				price: this.props.price,
-				quantity: +this.state.quantity,
-				totalPrice: +this.state.quantity * this.props.price
-			})
-            this.setState ({
-                quantity: 1
-            });
-
-		} else if (this.isOutOfStock()) sweetAlert({ title: "Error!",
-            text: "Item out of stock :(",
-            type: "error",
-            confirmButtonText: "Cool"});
-		else sweetAlert({title: "Error!",
-            text: "Quantity to big",
-            type: "error",
-            confirmButtonText: "Ok"})
+		});
 	}
 	render() {
 		return (
@@ -57,13 +40,13 @@ class ProductGrid extends Component {
 
 				<div className="card-content is-primary">
 					<label> Quantity </label>
-					<input className="input" onChange={this.handleChange} value={+this.state.quantity} type="number" />
-					<p> Total price {this.props.price * this.state.quantity} </p>
+					{/*<input className="input" onChange={this.handleChange} value={+this.state.quantity} type="number" />*/}
+					{/*<p> Total price {this.props.price * this.state.quantity} </p>*/}
 				</div>
 				<div className="card-footer">
-					<p className="product__stock card-footer-item"> Stock: { this.props.stock } </p>
+					{/*<p className="product__stock card-footer-item"> Stock: { this.props.stock } </p>*/}
 					<p className="card-footer-item">
-						<button onClick={this.addToCart} className={"product__add-to-cart button is-primary" + (this.isOutOfStock() ? 'button' : 'button is-primary')  + ""}> Add to cart</button>
+						<button onClick={this.addProductToCart.bind(this)} className={"product__add-to-cart button is-primary" + (this.isOutOfStock() ? 'button' : 'button is-primary')  + ""}> Add to cart</button>
 					</p>
 
 
@@ -72,4 +55,17 @@ class ProductGrid extends Component {
 			)
 	}
 }
-export default ProductGrid
+const mapStateToProps = (state) => {
+    return {}
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addProductToCart: (newProduct) => dispatch({
+            type: 'ADD_PRODUCT_TO_CART',
+			productToAdd: newProduct
+        })
+	}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product);
