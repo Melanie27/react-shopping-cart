@@ -16,6 +16,12 @@ const productReducer = (state = {
             cartProducts: [...state.cartProducts, action.productToAdd]
         }
     }
+    if (action.type === 'REMOVE_PRODUCT_FROM_CART') {
+        state = {
+            ...state,
+            cartProducts: state.cartProducts.filter(singleProduct => singleProduct.name === action.productName)
+        }
+    }
     return state
 
 };
