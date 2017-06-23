@@ -25,20 +25,26 @@ class Product extends Component {
 		return this.props.stock <= 0;
 	}
     addProductToCart() {
-		this.props.addProductToCart({
+		if (this.state.quantity > this.props.stock) {
+			sweetAlert('Error', 'Stock is to small')
+		} else if (this.state.quantity <= 0) {
+			sweetAlert('Error', 'You cannot choose quantity less than or equal 0')
+		} else {
+            this.props.addProductToCart({
 
-				name: this.props.name,
-				totalPrice: +this.props.price * +this.state.quantity,
+                name: this.props.name,
+                totalPrice: +this.props.price * +this.state.quantity,
+                quantity: this.state.quantity
+            });
+            this.props.removeQuantity({
+                name: this.props.name,
+                quantity: this.state.quantity
+            });
+		}
 
-		});
-		this.props.removeQuantity({
-			name: this.props.name,
-			quantity: this.state.quantity
-        });
-
-		this.setState({
-			quantity: 1
-		})
+        this.setState({
+            quantity: 1
+        })
 	}
 	render() {
 		return (

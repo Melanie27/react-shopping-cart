@@ -8,10 +8,9 @@ class Cart extends Component {
     constructor() {
         super();
         this.state = {
-            isCartOpened: true
+            isCartOpened: false
         };
         this.orderPrice = this.orderPrice.bind(this);
-        this.deleteProduct = this.deleteProduct.bind(this);
     }
     orderPrice() {
         return this.props.cartProducts.reduce((totalPrice, currentProduct) => {
@@ -26,11 +25,6 @@ class Cart extends Component {
     }
 
 
-    deleteProduct(productKey) {
-
-        this.props.onDeleteProduct({ productKey });
-
-    }
     render() {
         return (
             <aside className={"cart menu " + (this.state.isCartOpened ? 'cart__is-open' : '')}>
@@ -45,12 +39,12 @@ class Cart extends Component {
                     {this.props.cartProducts.map((product, key) =>
                         <div key={key} className="cart__product">
                             <h5 className="product__title">{ product.name } </h5>
-                            {/*<p className="product__quantity">Quantity: { product.quantity } </p>*/}
+                            <p className="product__quantity">Quantity: { product.quantity } </p>
                             <p className="product__total-price"> Total price: { product.totalPrice }$ </p>
                             <div className="block" >
 								<span className="tag is-danger">
 									Delete
-							<button onClick={this.props.removeProductFromCart.bind(this, key)} className="delete is-small"></button>
+							<button onClick={this.props.removeProductFromCart.bind(this, key, product.name, product.quantity)} className="delete is-small"></button>
 							</span>
                             </div>
                         </div>
@@ -72,9 +66,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        removeProductFromCart: (productId) => dispatch({
+        removeProductFromCart: (key, productName, productQuantity) => dispatch({
             type: 'REMOVE_PRODUCT_FROM_CART',
-            productId
+            productId: key,
+            productName,
+            productQuantity
         })
     }
 };

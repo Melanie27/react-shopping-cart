@@ -23,9 +23,12 @@ const productReducer = (state = {
               return index !== action.productId;
             }),
             ProductsDatabase: state.ProductsDatabase.map(singleProduct => {
-                if (singleProduct.name === action.productDetails.name) {
-
-                }
+                if (singleProduct.name === action.productName) {
+                    return {
+                        ...singleProduct,
+                        stock: singleProduct.stock + +action.productQuantity
+                    }
+                } else return singleProduct
             })
         }
     }
