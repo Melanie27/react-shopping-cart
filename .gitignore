@@ -22,3 +22,4 @@ yarn-error.log*
 
 workspace.xml
 .idea
+.workspace*
