@@ -10,9 +10,15 @@ const productReducer = (state = {
     ProductsDatabase: ProductsDatabase,
    categoryToFilter: 'all',
    cartProducts: [],
-   isCartOpened: true
+   isCartOpened: false
 }, action) => {
     switch (action.type) {
+        case 'CONFIRM_ORDER':
+            state = {
+                ...state,
+                cartProducts: []
+            };
+            break;
         case 'TOGGLE_CART_STATUS':
             state =  {
                 ...state,
