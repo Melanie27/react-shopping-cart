@@ -7,9 +7,6 @@ import '../css/Cart.css';
 class Cart extends Component {
     constructor() {
         super();
-        this.state = {
-            isCartOpened: false
-        };
         this.orderPrice = this.orderPrice.bind(this);
     }
     orderPrice() {
@@ -27,10 +24,7 @@ class Cart extends Component {
 
     render() {
         return (
-            <aside className={"cart menu " + (this.state.isCartOpened ? 'cart__is-open' : '')}>
-                <button onClick={this.toggleCartStatus.bind(this)} className="cart__switcher button is-info">
-                    {this.state.isCartOpened ? 'Close' : 'Open Your Cart'}
-                </button>
+            <aside className={"cart menu " + (this.props.isCartOpened ? 'cart__is-open' : '')}>
                 <h3 className="title is-2"> Your order </h3>
                 <h5 className="tag">
                     Order price: 		{ this.orderPrice() }$
@@ -60,7 +54,8 @@ class Cart extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        cartProducts: state.cartProducts
+        cartProducts: state.cartProducts,
+        isCartOpened: state.isCartOpened
     }
 };
 

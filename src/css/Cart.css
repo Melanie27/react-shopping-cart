@@ -15,9 +15,7 @@
     background: white;
 }
 .cart__switcher {
-    position: fixed;
-    right: 160px;
-    top: -75px;
+    position: static;
 }
 .cart__is-open {
     right: -80px;

@@ -9,9 +9,16 @@ import ProductsDatabase from './ProductsDatabase.js';
 const productReducer = (state = {
     ProductsDatabase: ProductsDatabase,
    categoryToFilter: 'all',
-   cartProducts: []
+   cartProducts: [],
+   isCartOpened: true
 }, action) => {
     switch (action.type) {
+        case 'TOGGLE_CART_STATUS':
+            state =  {
+                ...state,
+                isCartOpened: !state.isCartOpened
+            };
+            break;
         case 'FILTER_PRODUCTS_BY_CATEGORY':
             state = {
                 ...state,
