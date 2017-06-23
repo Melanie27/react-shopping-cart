@@ -6,6 +6,8 @@ import CartStore from './store/CartStore';
 import { Provider } from 'react-redux'
 import Cart from './components/Cart.js';
 import ProductGrid from './components/ProductGrid.js';
+import FilterTabs from './components/FilterTabs.js';
+import TitleBar from './components/TitleBar.js';
 
 
 class App extends Component {
@@ -41,16 +43,19 @@ class App extends Component {
       render() {
         return (
             <Provider store={CartStore}>
+                <div className="container">
+                    <TitleBar title="MyShop"></TitleBar>
+                    <FilterTabs></FilterTabs>
+                        <div className="app-container container">
+                                <div className="inner-container">
+                                        <ProductGrid filterProducts={this.state.productsToFilter} onAddToCart={this.sendToCart}/>
 
-            <div className="app-container container">
-                    <div className="inner-container">
-                            <ProductGrid filterProducts={this.state.productsToFilter} onAddToCart={this.sendToCart}/>
 
-
-                    </div>
-                    <Cart></Cart>
-              </div>
-      </Provider>
+                                </div>
+                                <Cart></Cart>
+                          </div>
+                </div>
+        </Provider>
         )
       }
     }
