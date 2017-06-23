@@ -49,8 +49,6 @@ class App extends Component {
                         <div className="app-container container">
                                 <div className="inner-container">
                                         <ProductGrid filterProducts={this.state.productsToFilter} onAddToCart={this.sendToCart}/>
-
-
                                 </div>
                                 <Cart></Cart>
                           </div>

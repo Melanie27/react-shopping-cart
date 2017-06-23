@@ -1,7 +1,8 @@
 import React from 'react';
 import ProductDatabase from '../store/ProductsDatabase';
+import {connect} from "react-redux";
 
-export default class FilterTabs extends React.Component{
+class FilterTabs extends React.Component{
     constructor() {
         super();
         let categories = ProductDatabase.map(singleProduct => {
@@ -16,11 +17,32 @@ export default class FilterTabs extends React.Component{
         return (
             <div className="tabs">
                 <ul>
-                    {this.state.categories.map(singleCategory => {
-                        return <li><a href="#"> {singleCategory} </a> </li>
-                    })}
+
+                    <li className={this.props.activeCategory === 'all' ? 'is-active' : ''}><a onClick={this.props.filterProductByCategory.bind(this, 'all')} href='#all'> all</a></li>
+                    {this.state.categories.map(singleCategory =>
+                        <li className={this.props.activeCategory === singleCategory ? 'is-active' : ''}>
+                            <a onClick={this.props.filterProductByCategory.bind(this, singleCategory)} href={'#' + singleCategory}> {singleCategory} </a>
+                        </li>
+                    )}
                 </ul>
             </div>
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        activeCategory: state.categoryToFilter
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        filterProductByCategory: (category) => dispatch({
+            type: 'FILTER_PRODUCTS_BY_CATEGORY',
+            category
+        })
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterTabs);

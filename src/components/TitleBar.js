@@ -4,7 +4,7 @@
 import React from 'react';
 const TitleBar = (props) => {
     return (
-        <h1 className="title">
+        <h1 style={{marginTop: 45}} className="title">
             {props.title}
         </h1>
     );

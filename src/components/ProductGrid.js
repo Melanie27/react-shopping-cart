@@ -10,17 +10,23 @@ class ProductGrid extends Component {
 	render() {
 		return (
 			<div className="product-grid">
-				{ this.props.ProductsDatabase.map((product, key) =>
-				 <Product key={key} name={product.name} stock={product.stock} price={product.price}
-				 category={product.category}/>
-					)}
+				{ this.props.ProductsDatabase.map((product, key) => {
+               		if (product.category === this.props.categoryToFilter || this.props.categoryToFilter === 'all') {
+                        return (
+							<Product key={key} name={product.name} stock={product.stock} price={product.price}
+									 category={product.category}/> )
+                    }
+
+
+					})}
 			</div>
 		)
 	}
 }
 const mapStateToProps = (state) => {
     return {
-        ProductsDatabase: state.ProductsDatabase
+        ProductsDatabase: state.ProductsDatabase,
+		categoryToFilter: state.categoryToFilter
     }
 };
 
