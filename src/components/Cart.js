@@ -3,11 +3,12 @@
  */
 import React, { Component } from 'react';
 import {connect} from "react-redux";
+import '../css/Cart.css';
 class Cart extends Component {
     constructor() {
         super();
         this.state = {
-            isCartOpened: false
+            isCartOpened: true
         };
         this.orderPrice = this.orderPrice.bind(this);
         this.deleteProduct = this.deleteProduct.bind(this);
@@ -30,7 +31,6 @@ class Cart extends Component {
         this.props.onDeleteProduct({ productKey });
 
     }
-    //{"product__add-to-cart card-footer-item button is-primary" + (this.isOutOfStock() ? 'button' : 'button is-primary')  + ""}
     render() {
         return (
             <aside className={"cart menu " + (this.state.isCartOpened ? 'cart__is-open' : '')}>
@@ -41,18 +41,16 @@ class Cart extends Component {
                 <h5 className="tag">
                     Order price: 		{ this.orderPrice() }$
                 </h5>
-                <p>Your products:</p>
                 <div className="cart__products-list" >
                     {this.props.cartProducts.map((product, key) =>
                         <div key={key} className="cart__product">
                             <h5 className="product__title">{ product.name } </h5>
-                            {/*<p className="product__price">Price { product.price }$ </p>*/}
-                            <p className="product__quantity">Quantity: { product.quantity } </p>
+                            {/*<p className="product__quantity">Quantity: { product.quantity } </p>*/}
                             <p className="product__total-price"> Total price: { product.totalPrice }$ </p>
                             <div className="block" >
 								<span className="tag is-danger">
 									Delete
-							<button onClick={this.deleteProduct.bind(this, key)} className="delete is-small"></button>
+							<button onClick={this.props.removeProductFromCart.bind(this, key)} className="delete is-small"></button>
 							</span>
                             </div>
                         </div>
@@ -74,7 +72,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        removeProductFromCart: (productId) => dispatch({
+            type: 'REMOVE_PRODUCT_FROM_CART',
+            productId
+        })
     }
 };
 

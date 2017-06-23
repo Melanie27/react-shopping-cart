@@ -6,6 +6,7 @@
     -moz-box-shadow:  -2px 0px 10px rgba(0,0,0, .2);
     box-shadow:  0px 0px 10px rgba(0,0,0, .2);
     right: -400px;
+    top: 100px;
     -webkit-transition: right .3s;
     -moz-transition: right .3s;
     -ms-transition: right .3s;
