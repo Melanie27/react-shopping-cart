@@ -3,8 +3,8 @@
  */
 import { createStore, applyMiddleware } from 'redux';
 import { logger } from 'redux-logger';
-import ProductsDatabase from './ProductsDatabase.js';
-
+import { thunk } from 'redux-thunk';
+import database from '../firebaseConfig';
 
 const productReducer = (state = {
     ProductsDatabase: ProductsDatabase,
@@ -47,6 +47,6 @@ const productReducer = (state = {
 
 };
 
-const cartStore = createStore(productReducer, applyMiddleware(logger));
+const cartStore = createStore(productReducer, applyMiddleware(logger, thunk));
 
 export default cartStore;
