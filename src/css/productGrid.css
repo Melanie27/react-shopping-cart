@@ -3,3 +3,11 @@
 	width: 100%;
 	flex-wrap: wrap;
 }
+
+.button.is-primary.is-primarybutton, .button.is-info {
+	background-color: #941214 !important;
+}
+
+.tabs li.is-active a {
+	color: #941214 !important;
+}

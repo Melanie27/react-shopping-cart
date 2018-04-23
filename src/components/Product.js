@@ -52,9 +52,11 @@ class Product extends Component {
 				<div className="card-header">
 					<h5 className="product__name card-header-title"> { this.props.name } </h5>
 					<p className="product__price card-header-icon"> ${ this.props.price }  </p>
+
 				</div>
 
 				<div className="card-content is-primary">
+					<img className="img-responsive product__image" src={this.props.image}/><br/>
 					<label> Quantity </label>
 					<input className="input" onChange={this.handleChange} value={+this.state.quantity} type="number" />
 					<p> Total price ${this.props.price * this.state.quantity} </p>

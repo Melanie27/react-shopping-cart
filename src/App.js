@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // moje
+//import { Route, Link } from 'react-router-dom';
 import './index.css';
-import logo from './logo.svg';
 import CartStore from './store/CartStore';
 import { Provider } from 'react-redux'
 import Cart from './components/Cart.js';
@@ -42,9 +42,13 @@ class App extends Component {
     }
       render() {
         return (
+            
+
             <Provider store={CartStore}>
+                
                 <div className="container">
-                    <TitleBar title="MyShop"></TitleBar>
+                    <TitleBar title="Point of Sale"></TitleBar>
+                   
                     <FilterTabs></FilterTabs>
                         <div className="app-container container">
                                 <div className="inner-container">

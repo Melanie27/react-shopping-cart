@@ -3,6 +3,11 @@
     margin-bottom: 50px;
 }
 
+.product__image {
+	
+	max-height:100px;
+}
+
 /*.product__name {*/
 	/*font-size: 30px;*/
 	/*margin-bottom: 10px;	*/

@@ -14,7 +14,7 @@ class ProductGrid extends Component {
                		if (product.category === this.props.categoryToFilter || this.props.categoryToFilter === 'all') {
                         return (
 							<Product key={key} name={product.name} stock={product.stock} price={product.price}
-									 category={product.category}/> )
+									 category={product.category} image={product.image}/> )
                     }
 
 
